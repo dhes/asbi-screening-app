@@ -403,12 +403,16 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Not",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "type" : "IsNull",
+                     "type" : "Not",
                      "operand" : {
-                        "name" : "SexAtBirthExtension",
-                        "type" : "ExpressionRef"
+                        "type" : "IsNull",
+                        "operand" : {
+                           "name" : "SexAtBirthExtension",
+                           "type" : "ExpressionRef"
+                        }
                      }
                   }
                },
@@ -595,10 +599,14 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "IsNull",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "name" : "period",
-                     "type" : "OperandRef"
+                     "type" : "IsNull",
+                     "operand" : {
+                        "name" : "period",
+                        "type" : "OperandRef"
+                     }
                   }
                },
                "then" : {
@@ -1272,10 +1280,14 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Not",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "name" : "IsPregnant",
-                     "type" : "ExpressionRef"
+                     "type" : "Not",
+                     "operand" : {
+                        "name" : "IsPregnant",
+                        "type" : "ExpressionRef"
+                     }
                   }
                },
                "then" : {
@@ -1294,23 +1306,27 @@
                "else" : {
                   "type" : "If",
                   "condition" : {
-                     "type" : "Greater",
-                     "operand" : [ {
-                        "name" : "MostRecentPregnancyDate",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "type" : "ToDateTime",
-                        "operand" : {
-                           "type" : "Subtract",
-                           "operand" : [ {
-                              "type" : "Today"
-                           }, {
-                              "value" : 3,
-                              "unit" : "months",
-                              "type" : "Quantity"
-                           } ]
-                        }
-                     } ]
+                     "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                     "type" : "As",
+                     "operand" : {
+                        "type" : "Greater",
+                        "operand" : [ {
+                           "name" : "MostRecentPregnancyDate",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "type" : "ToDateTime",
+                           "operand" : {
+                              "type" : "Subtract",
+                              "operand" : [ {
+                                 "type" : "Today"
+                              }, {
+                                 "value" : 3,
+                                 "unit" : "months",
+                                 "type" : "Quantity"
+                              } ]
+                           }
+                        } ]
+                     }
                   },
                   "then" : {
                      "name" : "MostRecentPregnancyDate",
@@ -2633,29 +2649,33 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "And",
-                  "operand" : [ {
-                     "type" : "LessOrEqual",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "And",
                      "operand" : [ {
-                        "precision" : "Year",
-                        "type" : "CalculateAge",
-                        "operand" : {
-                           "path" : "birthDate.value",
-                           "type" : "Property",
-                           "source" : {
-                              "name" : "Patient",
-                              "type" : "ExpressionRef"
+                        "type" : "LessOrEqual",
+                        "operand" : [ {
+                           "precision" : "Year",
+                           "type" : "CalculateAge",
+                           "operand" : {
+                              "path" : "birthDate.value",
+                              "type" : "Property",
+                              "source" : {
+                                 "name" : "Patient",
+                                 "type" : "ExpressionRef"
+                              }
                            }
-                        }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "65",
+                           "type" : "Literal"
+                        } ]
                      }, {
-                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                        "value" : "65",
-                        "type" : "Literal"
+                        "name" : "MaleAtBirth",
+                        "type" : "ExpressionRef"
                      } ]
-                  }, {
-                     "name" : "MaleAtBirth",
-                     "type" : "ExpressionRef"
-                  } ]
+                  }
                },
                "then" : {
                   "valueType" : "{urn:hl7-org:elm-types:r1}String",
@@ -2675,29 +2695,33 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "And",
-                  "operand" : [ {
-                     "type" : "LessOrEqual",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "And",
                      "operand" : [ {
-                        "precision" : "Year",
-                        "type" : "CalculateAge",
-                        "operand" : {
-                           "path" : "birthDate.value",
-                           "type" : "Property",
-                           "source" : {
-                              "name" : "Patient",
-                              "type" : "ExpressionRef"
+                        "type" : "LessOrEqual",
+                        "operand" : [ {
+                           "precision" : "Year",
+                           "type" : "CalculateAge",
+                           "operand" : {
+                              "path" : "birthDate.value",
+                              "type" : "Property",
+                              "source" : {
+                                 "name" : "Patient",
+                                 "type" : "ExpressionRef"
+                              }
                            }
-                        }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "65",
+                           "type" : "Literal"
+                        } ]
                      }, {
-                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                        "value" : "65",
-                        "type" : "Literal"
+                        "name" : "MaleAtBirth",
+                        "type" : "ExpressionRef"
                      } ]
-                  }, {
-                     "name" : "MaleAtBirth",
-                     "type" : "ExpressionRef"
-                  } ]
+                  }
                },
                "then" : {
                   "valueType" : "{urn:hl7-org:elm-types:r1}String",
@@ -3375,10 +3399,14 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Exists",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "name" : "CurrentResponse1",
-                     "type" : "ExpressionRef"
+                     "type" : "Exists",
+                     "operand" : {
+                        "name" : "CurrentResponse1",
+                        "type" : "ExpressionRef"
+                     }
                   }
                },
                "then" : {
@@ -3481,20 +3509,24 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Not",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "type" : "Equal",
-                     "operand" : [ {
-                        "name" : "UsAuditResponseIndex1",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "type" : "Negate",
-                        "operand" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                           "value" : "1",
-                           "type" : "Literal"
-                        }
-                     } ]
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "name" : "UsAuditResponseIndex1",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "type" : "Negate",
+                           "operand" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "1",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     }
                   }
                },
                "then" : {
@@ -3718,10 +3750,14 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Exists",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "name" : "CurrentResponse2",
-                     "type" : "ExpressionRef"
+                     "type" : "Exists",
+                     "operand" : {
+                        "name" : "CurrentResponse2",
+                        "type" : "ExpressionRef"
+                     }
                   }
                },
                "then" : {
@@ -3824,20 +3860,24 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Not",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "type" : "Equal",
-                     "operand" : [ {
-                        "name" : "UsAuditResponseIndex2",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "type" : "Negate",
-                        "operand" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                           "value" : "1",
-                           "type" : "Literal"
-                        }
-                     } ]
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "name" : "UsAuditResponseIndex2",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "type" : "Negate",
+                           "operand" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "1",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     }
                   }
                },
                "then" : {
@@ -4061,10 +4101,14 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Exists",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "name" : "CurrentResponse3",
-                     "type" : "ExpressionRef"
+                     "type" : "Exists",
+                     "operand" : {
+                        "name" : "CurrentResponse3",
+                        "type" : "ExpressionRef"
+                     }
                   }
                },
                "then" : {
@@ -4167,20 +4211,24 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Not",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "type" : "Equal",
-                     "operand" : [ {
-                        "name" : "UsAuditResponseIndex3",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "type" : "Negate",
-                        "operand" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                           "value" : "1",
-                           "type" : "Literal"
-                        }
-                     } ]
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "name" : "UsAuditResponseIndex3",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "type" : "Negate",
+                           "operand" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "1",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     }
                   }
                },
                "then" : {
@@ -4314,41 +4362,45 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Or",
-                  "operand" : [ {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
                      "type" : "Or",
                      "operand" : [ {
-                        "name" : "FemaleAtBirth",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "name" : "SexAtBirthUnknown",
-                        "type" : "ExpressionRef"
-                     } ]
-                  }, {
-                     "type" : "And",
-                     "operand" : [ {
-                        "name" : "MaleAtBirth",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "type" : "Greater",
+                        "type" : "Or",
                         "operand" : [ {
-                           "precision" : "Year",
-                           "type" : "CalculateAge",
-                           "operand" : {
-                              "path" : "birthDate.value",
-                              "type" : "Property",
-                              "source" : {
-                                 "name" : "Patient",
-                                 "type" : "ExpressionRef"
-                              }
-                           }
+                           "name" : "FemaleAtBirth",
+                           "type" : "ExpressionRef"
                         }, {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                           "value" : "65",
-                           "type" : "Literal"
+                           "name" : "SexAtBirthUnknown",
+                           "type" : "ExpressionRef"
+                        } ]
+                     }, {
+                        "type" : "And",
+                        "operand" : [ {
+                           "name" : "MaleAtBirth",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "type" : "Greater",
+                           "operand" : [ {
+                              "precision" : "Year",
+                              "type" : "CalculateAge",
+                              "operand" : {
+                                 "path" : "birthDate.value",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "name" : "Patient",
+                                    "type" : "ExpressionRef"
+                                 }
+                              }
+                           }, {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "65",
+                              "type" : "Literal"
+                           } ]
                         } ]
                      } ]
-                  } ]
+                  }
                },
                "then" : {
                   "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
@@ -4586,10 +4638,14 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Exists",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "name" : "CurrentResponse4",
-                     "type" : "ExpressionRef"
+                     "type" : "Exists",
+                     "operand" : {
+                        "name" : "CurrentResponse4",
+                        "type" : "ExpressionRef"
+                     }
                   }
                },
                "then" : {
@@ -4692,20 +4748,24 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Not",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "type" : "Equal",
-                     "operand" : [ {
-                        "name" : "UsAuditResponseIndex4",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "type" : "Negate",
-                        "operand" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                           "value" : "1",
-                           "type" : "Literal"
-                        }
-                     } ]
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "name" : "UsAuditResponseIndex4",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "type" : "Negate",
+                           "operand" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "1",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     }
                   }
                },
                "then" : {
@@ -4929,10 +4989,14 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Exists",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "name" : "CurrentResponse5",
-                     "type" : "ExpressionRef"
+                     "type" : "Exists",
+                     "operand" : {
+                        "name" : "CurrentResponse5",
+                        "type" : "ExpressionRef"
+                     }
                   }
                },
                "then" : {
@@ -5035,20 +5099,24 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Not",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "type" : "Equal",
-                     "operand" : [ {
-                        "name" : "UsAuditResponseIndex5",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "type" : "Negate",
-                        "operand" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                           "value" : "1",
-                           "type" : "Literal"
-                        }
-                     } ]
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "name" : "UsAuditResponseIndex5",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "type" : "Negate",
+                           "operand" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "1",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     }
                   }
                },
                "then" : {
@@ -5272,10 +5340,14 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Exists",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "name" : "CurrentResponse6",
-                     "type" : "ExpressionRef"
+                     "type" : "Exists",
+                     "operand" : {
+                        "name" : "CurrentResponse6",
+                        "type" : "ExpressionRef"
+                     }
                   }
                },
                "then" : {
@@ -5378,20 +5450,24 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Not",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "type" : "Equal",
-                     "operand" : [ {
-                        "name" : "UsAuditResponseIndex6",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "type" : "Negate",
-                        "operand" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                           "value" : "1",
-                           "type" : "Literal"
-                        }
-                     } ]
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "name" : "UsAuditResponseIndex6",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "type" : "Negate",
+                           "operand" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "1",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     }
                   }
                },
                "then" : {
@@ -5615,10 +5691,14 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Exists",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "name" : "CurrentResponse7",
-                     "type" : "ExpressionRef"
+                     "type" : "Exists",
+                     "operand" : {
+                        "name" : "CurrentResponse7",
+                        "type" : "ExpressionRef"
+                     }
                   }
                },
                "then" : {
@@ -5721,20 +5801,24 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Not",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "type" : "Equal",
-                     "operand" : [ {
-                        "name" : "UsAuditResponseIndex7",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "type" : "Negate",
-                        "operand" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                           "value" : "1",
-                           "type" : "Literal"
-                        }
-                     } ]
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "name" : "UsAuditResponseIndex7",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "type" : "Negate",
+                           "operand" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "1",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     }
                   }
                },
                "then" : {
@@ -5958,10 +6042,14 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Exists",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "name" : "CurrentResponse8",
-                     "type" : "ExpressionRef"
+                     "type" : "Exists",
+                     "operand" : {
+                        "name" : "CurrentResponse8",
+                        "type" : "ExpressionRef"
+                     }
                   }
                },
                "then" : {
@@ -6064,20 +6152,24 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Not",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "type" : "Equal",
-                     "operand" : [ {
-                        "name" : "UsAuditResponseIndex8",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "type" : "Negate",
-                        "operand" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                           "value" : "1",
-                           "type" : "Literal"
-                        }
-                     } ]
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "name" : "UsAuditResponseIndex8",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "type" : "Negate",
+                           "operand" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "1",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     }
                   }
                },
                "then" : {
@@ -6396,10 +6488,14 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Exists",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "name" : "CurrentResponse9",
-                     "type" : "ExpressionRef"
+                     "type" : "Exists",
+                     "operand" : {
+                        "name" : "CurrentResponse9",
+                        "type" : "ExpressionRef"
+                     }
                   }
                },
                "then" : {
@@ -6502,20 +6598,24 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Not",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "type" : "Equal",
-                     "operand" : [ {
-                        "name" : "UsAuditResponseIndex9",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "type" : "Negate",
-                        "operand" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                           "value" : "1",
-                           "type" : "Literal"
-                        }
-                     } ]
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "name" : "UsAuditResponseIndex9",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "type" : "Negate",
+                           "operand" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "1",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     }
                   }
                },
                "then" : {
@@ -6739,10 +6839,14 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Exists",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "name" : "CurrentResponse10",
-                     "type" : "ExpressionRef"
+                     "type" : "Exists",
+                     "operand" : {
+                        "name" : "CurrentResponse10",
+                        "type" : "ExpressionRef"
+                     }
                   }
                },
                "then" : {
@@ -6845,20 +6949,24 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "type" : "Not",
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
                   "operand" : {
-                     "type" : "Equal",
-                     "operand" : [ {
-                        "name" : "UsAuditResponseIndex10",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "type" : "Negate",
-                        "operand" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                           "value" : "1",
-                           "type" : "Literal"
-                        }
-                     } ]
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "name" : "UsAuditResponseIndex10",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "type" : "Negate",
+                           "operand" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "1",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     }
                   }
                },
                "then" : {
