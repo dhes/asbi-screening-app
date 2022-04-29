@@ -10,3 +10,5 @@ Trying to fix misdirection in Heroku deployment:
   - revise publicpath in vue.config.js from 
     - process.env.NODE_ENV === 'production' ? '/asbi-screening-app/' : '/', to
     - '/'
+
+  - That revision resulted in succesful display of the first questionnaire page. 
